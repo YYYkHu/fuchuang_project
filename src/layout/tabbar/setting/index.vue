@@ -20,7 +20,7 @@
     </span>
     <template #dropdown>
       <el-dropdown-menu>
-        <el-dropdown-item @click="logout()">退出登录</el-dropdown-item>
+        <el-dropdown-item @click="logout">退出登录</el-dropdown-item>
       </el-dropdown-menu>
     </template>
   </el-dropdown>
@@ -35,11 +35,11 @@ let userStore = useUserStore();
 let $router = useRouter();
 let $route = useRoute();
 // 退出登录
-const logout = () => {
+const logout = async () => {
   // 1、回调，发送退出请求，本次token无效：
   // 2、仓库中关于用户相关的信息清除
   // 3、跳转到login登陆页面
-  userStore.userLogout();
+  await userStore.userLogout();
   // 获取了路由器对象
   $router.push({ path: "/login", query: { redirect: $route.path } });
 };

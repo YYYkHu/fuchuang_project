@@ -18,7 +18,7 @@ console.log(userStore.token);
 //  全局守卫:项目中任意路由触发的钩子
 // 全局前置守卫
 router.beforeEach(async (to: any, from: any, next: any) => {
-  // to:将要访问那个路由
+  // to:将要访问那个路由67
   // from:你从哪个路由而来
   // next:路由的放行函数
   nprogress.start();
@@ -44,7 +44,7 @@ router.beforeEach(async (to: any, from: any, next: any) => {
           // token获取不到用户信息了
           // 用户手动修改本地存储token
           // 退出登录
-          userStore.userLogout();
+          await userStore.userLogout();
           next({ path: "/login", query: { redirect: to.path } });
         }
       }

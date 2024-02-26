@@ -160,4 +160,28 @@ export const constantRoutes = [
       },
     ],
   },
+
+  // 日志路由
+  {
+    path: "/setting",
+    component: () => import("@/layout/index.vue"),
+    name: "Setting",
+    meta: {
+      title: "设置",
+      hidden: false,
+      icon: "Lock",
+    },
+    children: [
+      {
+        path: "/setting/log",
+        component: () => import("@/views/log/index.vue"),
+        name: "Log",
+        meta: {
+          title: "日志管理",
+          hidden: false,
+          icon: "ShoppingBag",
+        },
+      },
+    ],
+  },
 ];

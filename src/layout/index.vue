@@ -45,9 +45,7 @@
       class="layout_main"
       :class="{ fold: LayOutSettingStore.fold ? true : false }"
     >
-      <p style="height: 10000px">
-        <router-view></router-view>
-      </p>
+      <router-view></router-view>
     </div>
   </div>
 </template>
@@ -63,6 +61,8 @@ import Menu from "./menu/index.vue";
 import { useRoute } from "vue-router";
 // 引入tabbar 组件
 import Tabbar from "./tabbar/index.vue";
+//引入main
+// import Main from "./main/index.vue";
 // 获取用户相关的小仓库
 import useUserStore from "@/store/modules/user";
 import useLayOutSettingStore from "@/store/modules/setting";
@@ -120,7 +120,7 @@ export default {
     position: absolute;
     width: calc(100% - $base-menu-width);
     height: calc(100vh - $base-tabbar-height);
-    background: yellow;
+    // background: yellow;
     left: $base-menu-width;
     top: $base-tabbar-height;
     padding: 20px; //边框

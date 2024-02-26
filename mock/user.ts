@@ -27,9 +27,12 @@ function createUserList() {
     },
   ];
 }
-///对外暴露一个数组：数组中包含两个接
-// 登录假的接口
-// 获取用户的信息
+
+// function creatDashBoardList() {
+//   return [{
+
+//   }];
+// }
 
 export default [
   // 用户登录接口
@@ -70,4 +73,16 @@ export default [
       return { code: 200, data: { checkUser } };
     },
   },
+  // {
+  //   url: "/api/dashboard/info",
+  //   method: "post",
+  //   response: ({ body }) => {
+  //     //获取请求体携带过来的用户名与密码
+  //     const { username, password } = body;
+  //     //调用获取用户信息函数,用于判断是否有此用户
+  //     const checkUser = createUserList().find(
+  //       (item) => item.username === username && item.password === password
+  //     );
+  //   },
+  // },
 ];

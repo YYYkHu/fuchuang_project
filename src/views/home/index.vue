@@ -41,6 +41,7 @@
 import { ref, onMounted } from "vue";
 import * as echarts from "echarts";
 
+
 const chartRef = ref<null | HTMLDivElement>(null);
 const usechart = ref<null | HTMLDivElement>(null);
 const userchartone = ref<null | HTMLDivElement>(null);

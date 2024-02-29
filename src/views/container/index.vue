@@ -14,147 +14,81 @@
   <el-card style="margin: 12px 0px">
     <el-table style="margin: 12px 0px" border :data="userAll">
       <el-table-column type="selection"></el-table-column>
-      <el-table-column
-        label="#"
-        type="index"
-        align="center"
-        show-overflow-tooltip
-      ></el-table-column>
-      <el-table-column
-        label="ID"
-        prop="id"
-        align="center"
-        show-overflow-tooltip
-      ></el-table-column>
+      <el-table-column label="#" type="index" align="center" show-overflow-tooltip></el-table-column>
+      <el-table-column label="ID" prop="id" align="center" show-overflow-tooltip></el-table-column>
 
-      <el-table-column
-        label="用户名"
-        prop="name"
-        align="center"
-        show-overflow-tooltip
-      ></el-table-column>
+      <el-table-column label="用户名" prop="name" align="center" show-overflow-tooltip></el-table-column>
 
-      <el-table-column
-        label="容器名"
-        prop="roleName"
-        align="center"
-        show-overflow-tooltip
-      ></el-table-column>
+      <el-table-column label="容器名" prop="roleName" align="center" show-overflow-tooltip></el-table-column>
 
-      <el-table-column
-        label="状态"
-        prop="roleName"
-        align="center"
-        show-overflow-tooltip
-      ></el-table-column>
+      <el-table-column label="状态" prop="roleName" align="center" show-overflow-tooltip></el-table-column>
 
-      <el-table-column
-        label="创建时间"
-        prop="createTime"
-        align="center"
-        show-overflow-tooltip
-      ></el-table-column>
+      <el-table-column label="创建时间" prop="createTime" align="center" show-overflow-tooltip></el-table-column>
 
-      <el-table-column
-        label="最近开机时间"
-        prop="updateTime"
-        align="center"
-        show-overflow-tooltip
-      ></el-table-column>
+      <el-table-column label="最近开机时间" prop="updateTime" align="center" show-overflow-tooltip></el-table-column>
 
-      <el-table-column
-        label="ip地址"
-        prop="roleName"
-        align="center"
-        show-overflow-tooltip
-      ></el-table-column>
+      <el-table-column label="ip地址" prop="roleName" align="center" show-overflow-tooltip></el-table-column>
 
-      <el-table-column
-        label="CPU"
-        prop="roleName"
-        align="center"
-        show-overflow-tooltip
-      ></el-table-column>
+      <el-table-column label="CPU" prop="roleName" align="center" show-overflow-tooltip></el-table-column>
 
-      <el-table-column
-        label="内存"
-        prop="roleName"
-        align="center"
-        show-overflow-tooltip
-      ></el-table-column>
+      <el-table-column label="内存" prop="roleName" align="center" show-overflow-tooltip></el-table-column>
 
-      <el-table-column
-        label="系统盘"
-        prop="roleName"
-        align="center"
-        show-overflow-tooltip
-      ></el-table-column>
+      <el-table-column label="系统盘" prop="roleName" align="center" show-overflow-tooltip></el-table-column>
 
-      <el-table-column
-        label="数据盘"
-        prop="roleName"
-        align="center"
-        show-overflow-tooltip
-      ></el-table-column>
+      <el-table-column label="数据盘" prop="roleName" align="center" show-overflow-tooltip></el-table-column>
 
-      <el-table-column
-        label="所属网络"
-        prop="roleName"
-        align="center"
-        show-overflow-tooltip
-      ></el-table-column>
+      <el-table-column label="所属网络" prop="roleName" align="center" show-overflow-tooltip></el-table-column>
 
-      <el-table-column label="操作" width="200px" align="center">
+      <!-- <el-table-column label="操作" width="200px" align="center">
         <template #="{ row, $index }">
-          <el-button
-            type="primary"
-            size="small"
-            icon="Edit"
-            @click="updateContainer"
-            >编辑</el-button
-          >
+          <el-button type="primary" size="small" icon="Edit" @click="updateContainer">编辑</el-button>
 
-          <el-popconfirm
-            :title="`确定要删除${row.tmName}`"
-            width="200px"
-            @confirm="row.id;"
-          >
+          <el-popconfirm :title="`确定要删除${row.tmName}`" width="200px" @confirm="row.id;">
             <template #reference>
-              <el-button
-                slot="reference"
-                icon="Delete"
-                color="red"
-                size="small"
-                margin-left="10px"
-                @click="removeContainer(row)"
-                >删除</el-button
-              >
+              <el-button slot="reference" icon="Delete" color="red" size="small" margin-left="10px"
+                @click="removeContainer(row)">删除</el-button>
             </template>
           </el-popconfirm>
         </template>
-      </el-table-column>
+      </el-table-column> -->
     </el-table>
 
     <!-- 分页 -->
-    <el-pagination
-      v-model:current-page="pageNo"
-      v-model:page-size="pageSize"
-      :page-sizes="[5, 7, 9, 11]"
-      :background="true"
-      layout="prev, pager, next,jumper,->,sizes,total"
-      :total="total"
-      @current-change="getUserInfo"
-    />
+    <el-pagination v-model:current-page="pageNo" v-model:page-size="pageSize" :page-sizes="[5, 7, 9, 11]"
+      :background="true" layout="prev, pager, next,jumper,->,sizes,total" :total="total" @current-change="getUserInfo" />
   </el-card>
-
-  <el-dialog
-    title="修改容器信息"
-    v-model="centerDialogVisible"
-    :title="RoleParam ? '更新' : '添加'"
-  >
+<!-- 
+  <el-dialog title="修改容器信息" v-model="centerDialogVisible">
     <el-form :model="RoleParam" :rules="rules" ref="form">
       <el-form-item label="容器名称">
         <el-input placeholder="请输入容器名称"></el-input>
+      </el-form-item>
+      <el-form-item label="状态">
+        <el-input placeholder="请输入状态"></el-input>
+      </el-form-item>
+      <el-form-item label="创建时间">
+        <el-input placeholder="请输入创建时间"></el-input>
+      </el-form-item>
+      <el-form-item label="最近开机时间">
+        <el-input placeholder="请输入最近开机时间"></el-input>
+      </el-form-item>
+      <el-form-item label="ip地址">
+        <el-input placeholder="请输入ip地址"></el-input>
+      </el-form-item>
+      <el-form-item label="CPU">
+        <el-input placeholder="请输入CPU"></el-input>
+      </el-form-item>
+      <el-form-item label="内存">
+        <el-input placeholder="请输入内存"></el-input>
+      </el-form-item>
+      <el-form-item label="系统盘">
+        <el-input placeholder="请输入系统盘"></el-input>
+      </el-form-item>
+      <el-form-item label="数据盘">
+        <el-input placeholder="请输入数据盘"></el-input>
+      </el-form-item>
+      <el-form-item label="所属网络">
+        <el-input placeholder="请输入所属网络"></el-input>
       </el-form-item>
     </el-form>
     <template #footer>
@@ -163,7 +97,7 @@
         <el-button type="primary" @click="save">确 定</el-button>
       </span>
     </template>
-  </el-dialog>
+  </el-dialog> -->
   <!-- 分页 -->
 </template>
 

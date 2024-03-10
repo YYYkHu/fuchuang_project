@@ -1,15 +1,17 @@
 // 用户管理api
-import request from "@/utils/request";
+import request from "../../../utils/request";
 import { UserResponseData, User } from "./type";
 
 enum API {
-  ALLURERS_URL = "/admin/acl/user/",
+
+  //拿到所有的用户信息列表
+  ALLURERS_URL = "/user/userList",
   // 删除
-  DELETE_URL = "/admin/acl/user/",
+  DELETE_URL = "",
   // 添加用户信息
-  ADDUSER_URL = "/admin/acl/user/save",
+  ADDUSER_URL = "",
   // 更新用户信息
-  UPDATEUSER_URL = "/admin/acl/user/update",
+  UPDATEUSER_URL = "",
 }
 
 // 获取用户账户信息
@@ -23,7 +25,7 @@ export const reqDeleteUser = (id: number) =>
 // 添加
 export const reqAddUpdateUser = (data: User) => {
   // 判断是跟新还是添加
-  if (data.id) {
+  if (data.userId) {
     return request.put<any, User>(API.UPDATEUSER_URL, data);
   } else {
     return request.post<any, User>(API.ADDUSER_URL, data);

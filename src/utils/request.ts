@@ -6,7 +6,7 @@ import useUserStore from "@/store/modules/user";
 // 第一步  用axios对象的create方法来创建axios实例（基础路径，超时的时间）
 let request = axios.create({
   // 基础路径
-  baseURL: import.meta.env.VITE_APP_BASE_API, //基础路径上会携带/api
+  baseURL: 'http://pllysun.top:9527', //基础路径上会携带/api
   // 超时时间
   timeout: 5 * 1000,
 });
@@ -18,7 +18,8 @@ request.interceptors.request.use((config) => {
   // 带入token
   if (userStore.token) {
     // 给请求头添加token
-    config.headers.token = userStore.token;
+    console.log("token:" + userStore.token)
+    config.headers.Authorization = userStore.token;
   }
   // config配置对象，header属性请求头，经常给服务器端携带公共参数
   // 返回配置对象
@@ -33,7 +34,7 @@ request.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    // 响应失败，返回错误信息
+    // 响应失败，返回错误信息.
     // 失败回调：存储网络错误信息
     let message = "";
     let status = error.response.status;

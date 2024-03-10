@@ -47,25 +47,68 @@ export interface loginFormData {
   password: string;
 }
 
+export interface registerFormData{
+  username: string;
+  password: string;
+}
+
+export interface changeFormData{
+  username: string;
+  password: string;
+}
+
 // 定义全部接口返回数据都拥有的ts类型
 export interface ResponseData {
-  code: number;
-  message: string;
-  ok: boolean;
+  code?: number | null;
+    data?: { [key: string]: any };
+    message?: null | string;
+    
 }
+
+
 
 // 定义登录接口返回类型
 export interface loginResponseData extends ResponseData {
-  data: string;
+  
+}
+// 定义登录接口返回类型
+export interface registerResponseData extends ResponseData{
+
 }
 
 // 定义获取用户信息返回类型
 export interface userInfoResponseData extends ResponseData {
   data: {
-    routers: string[];
-    buttons: string[];
-    roles: string[];
-    name: string;
-    avatar: string;
+    userId:number;
+    username:string;
+    password:string;
+    userHead?:string|null;
+    email?:string|null;
+    phone?:number|null;
+    sex?:string|null;
+    age?:number|null;
+    occupationId?:number|null;
+    roleId?:number|null;
+    createTime?: string|null;
+    updateTime?: string|null;
+    numberOfDesktops?:number|null;
   };
+}
+
+export type userlist=userInfoResponseData[];
+
+//获取用户列表
+export interface userInfoResponselist extends ResponseData{
+  data:userlist;
+}
+
+//获取用户数量
+export interface userNumber extends ResponseData{
+  usernumber:number;
+}
+
+//定义用户info的请求数据
+export interface Requestuserinfo {
+  Authorization: string;
+  [property: string]: any;
 }

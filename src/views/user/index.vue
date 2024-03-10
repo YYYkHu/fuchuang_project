@@ -12,7 +12,7 @@
   </el-card>
   <!-- table展示数据 -->
   <el-card style="margin: 12px 0px">
-    <el-button type="primary" size="default" @click="addUser"
+    <el-button type="primary" size="default" @click=""
       >添加用户</el-button
     >
     <el-button type="primary" size="default">批量删除</el-button>
@@ -27,21 +27,35 @@
 
       <el-table-column
         label="ID"
-        prop="id"
+        prop="userId"
         align="center"
         show-overflow-tooltip
       ></el-table-column>
 
       <el-table-column
         label="用户名"
-        prop="name"
+        prop="username"
+        align="center"
+        show-overflow-tooltip
+      ></el-table-column>
+
+      <el-table-column
+        label="邮箱"
+        prop="email"
+        align="center"
+        show-overflow-tooltip
+      ></el-table-column>
+
+      <el-table-column
+        label="手机号"
+        prop="phone"
         align="center"
         show-overflow-tooltip
       ></el-table-column>
 
       <el-table-column
         label="角色"
-        prop="roleName"
+        prop="roleId"
         align="center"
         show-overflow-tooltip
       ></el-table-column>
@@ -167,7 +181,7 @@ const updateUser = (row: User) => {
 const save = async () => {
   // 点击保存,判断是更新还是添加
   let result: any = await reqAddUpdateUser(userParams);
-  if (result.code === 200) {
+  if (result.code === 0) {
     centerDialogVisible.value = false;
     // 提示消息
     ElMessage({

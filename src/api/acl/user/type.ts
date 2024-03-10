@@ -7,14 +7,19 @@ export interface ResponseData {
 
 // 一个账户信息的ts类型
 export interface User {
-  id?: number; //加？表示可有可无
-  username?: string;
-  updateTime?: string;
-  createTime?: string;
-  password?: string;
-  name?: string;
-  phone?: string;
-  roleName?: string;
+  userId:number;
+  username:string;
+  password:string;
+  userHead?:string|null;
+  email?:string|null;
+  phone?:number|null;
+  sex?:string|null;
+  age?:number|null;
+  occupationId?:number|null;
+  roleId?:number|null;
+  createTime?: string|null;
+  updateTime?: string|null;
+  numberOfDesktops?:number|null;
 }
 
 export type Records = User[];

@@ -27,9 +27,9 @@ export type Records = User[];
 export interface UserResponseData extends ResponseData {
   data: {
     records: Records;
-    total: number;
-    size: number;
-    current: number;
-    pages: number;
+    
   };
+}
+export interface Usernumber extends ResponseData{
+  Usernum:number;
 }

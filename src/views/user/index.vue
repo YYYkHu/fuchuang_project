@@ -164,9 +164,9 @@ const getUserInfo = async (pager = 1) => {
     pageNo.value,
     pageSize.value
   );
-  if (result.code === 200) {
-    userAll.value = result.data.records;
-    total.value = result.data.total;
+  if (result.code === 0) {
+    userAll.value = result.data;
+    total.value = 13;
   }
 };
 // 添加用户信息

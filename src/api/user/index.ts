@@ -29,11 +29,11 @@ import type {
 } from "./type";
 // 项目用户请求的地址
 enum API {
-  LOGIN_URL = "/user/login",
-  USERINFO_URL = "/user/userInfo",
-  REGISTER_URL = "/user/register",
-  LOGOUT_URL = "/user/logout",
-  USERINFO_LIST_URL="/user/userList"
+  LOGIN_URL = "http://pllysun.top:9527/user/login",
+  USERINFO_URL = "http://pllysun.top:9527/user/userInfo",
+  REGISTER_URL = "http://pllysun.top:9527/user/register",
+  LOGOUT_URL = "http://pllysun.top:9527/user/logout",
+  USERINFO_LIST_URL="http://pllysun.top:9527/user/userList"
 }
 
 // 登录接口

@@ -33,3 +33,25 @@ export interface UserResponseData extends ResponseData {
 export interface Usernumber extends ResponseData{
   Usernum:number;
 }
+
+
+export interface User_info_change_response {
+  email?: null | string;
+  name?: null | string;
+  occupationId?: null | string;
+  phone?: null | string;
+  roleId?: null | string;
+  
+}
+
+/**
+ * UserInfoDTO
+ */
+export interface User_info_change_Request {
+  email?: null | string;
+  name?: null | string;
+  occupationId?: null | string;
+  phone?: null | string;
+  roleId?: null | string;
+  
+}

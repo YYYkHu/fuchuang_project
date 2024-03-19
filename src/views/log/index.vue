@@ -25,35 +25,34 @@
           type="index"
         ></el-table-column>
 
-        <el-table-column label="类型" width="200">
-          <template #default="{ row, $index }">
-            <h1>{{ row.tmName }}</h1>
-          </template>
+        <el-table-column
+          label="logId"
+          width="100px"
+          align="center"
+          prop="logId"
+        ></el-table-column>
+
+        
+
+        <el-table-column 
+        label="localTime" 
+        width="200"
+        align="center"
+        prop="localTime"
+        >
+          
         </el-table-column>
 
-        <el-table-column label="URL">
-          <template #default="{ row, $index }">
-            <img
-              :src="row.logoUrl"
-              alt=""
-              style="width: 100px; height: 100px"
-            />
-          </template>
+        <el-table-column 
+        label="logContent" 
+        width="200"
+        align="center"
+        prop="logContent"
+        >
+          
         </el-table-column>
 
-        <el-table-column label="时间" width="200">
-          <template #default="{ row, $index }">
-            <h1>{{ row.tmName }}</h1>
-          </template>
-        </el-table-column>
-
-        <el-table-column label="文件" width="200">
-          <template #default="{ row, $index }">
-            <h1>{{ row.tmName }}</h1>
-          </template>
-        </el-table-column>
-
-        <el-table-column label="修改删除">
+        <!-- <el-table-column label="修改删除">
           <template #default="{ row, $index }">
             <el-button type="primary" size="" icon="Edit">修改</el-button>
             <el-popconfirm
@@ -68,7 +67,7 @@
               </template>
             </el-popconfirm>
           </template>
-        </el-table-column>
+        </el-table-column> -->
       </el-table>
 
       <!-- 分页 
@@ -94,9 +93,11 @@
 
 <script setup lang="ts">
 // 引入组合式api
-import { ref, onMounted } from "vue";
-import { reqHasTradeMark, reqDeleteTradeMark } from "@/api/product/trademark";
-import { Records } from "@/api/product/trademark/type";
+import { ref, onMounted, reactive } from "vue";
+import {  reqDeleteTradeMark } from "@/api/product/trademark";
+import {reqadminlog} from "../../api/log"
+import {AdminResponsedata,Records} from "../../api/log/type"
+
 import { ElMessage } from "element-plus";
 // 当前的页码
 let pageNo = ref<number>(1);
@@ -105,29 +106,25 @@ let limit = ref<number>(7);
 // 存储已有的品牌的数组
 let total = ref<number>(0);
 // 存储已有品牌的数组
-let trademarkArr = ref<Records>([]);
+let trademarkArr =ref<Records>([]);
 // 获取接口封装给函数
-const getHasTrademark = async (pager: number) => {
-  pageNo.value = pager;
-  let result = await reqHasTradeMark(pageNo.value, limit.value);
-  if (result.code == 200) {
-    // 已有品牌的
-    total.value = result.data.total;
-    console.log(result);
-    // 已有品牌的数组
-    trademarkArr.value = result.data.records;
-  }
+const getHasTrademark =async()=>{
+    const result:AdminResponsedata=await reqadminlog();
+    if(result.code===0){
+      trademarkArr.value =result.data;
+      console.log(trademarkArr)
+    }
 };
 // 获取分页器当前页码的函数
 // 参数：当前的页码,
 const getPageNo = (page: number) => {
   pageNo.value = page;
 
-  getHasTrademark(pageNo.value);
+  getHasTrademark();
 };
 // 组件挂载完毕
 onMounted(() => {
-  getHasTrademark(pageNo.value);
+  getHasTrademark();
 });
 // 删除请求
 const removeTrademark = async (id: number) => {

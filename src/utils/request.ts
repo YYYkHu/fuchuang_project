@@ -6,7 +6,7 @@ import useUserStore from "@/store/modules/user";
 // 第一步  用axios对象的create方法来创建axios实例（基础路径，超时的时间）
 let request = axios.create({
   // 基础路径
-  baseURL: 'http://pllysun.top:9527', //基础路径上会携带/api
+  baseURL: '', //基础路径上会携带/api
   // 超时时间
   timeout: 5 * 1000,
 });

@@ -1,5 +1,5 @@
 //官方和用户的查询参数
-export interface Request {
+export interface Reqmirror {
     " recommendedMemory"?: number;
     imageName?: string;
     imageSystem?: string;

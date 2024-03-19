@@ -12,42 +12,42 @@ enum API{
   request_personal_mirror_url="",
 }
 
-//²éÑ¯¹Ù·½¾µÏñ
+//è¯·æ±‚å®˜æ–¹é•œåƒ
 export const reqofficalmirror=()=>{
     request.get<any,Response>(API.request_offical_url);
 }
 
-//²éÑ¯ÓÃ»§¾µÏñ
+//è¯·æ±‚ç”¨æˆ·é•œåƒ
 export const requsermirror=()=>{
     request.get<any,Response>(API.request_user_url);
 }
-//×Ô¶¨Òå¾µÏñ²éÑ¯
+//è‡ªå®šä¹‰é•œåƒæŸ¥è¯¢
 export const customreqmirror=()=>{
     request.get<any,Response>(API.request_custom_mirror_url)
 }
 
-//²é¿´¸öÈËÉÏ´«¾µÏñ
+//è¯·æ±‚ä¸ªäººé•œåƒ
 export const reqpersonalmirror=()=>{
     request.get<any,any>(API.request_personal_mirror_url)
 }
 
-//¾µÏñ×ªÈÝÆ÷
+//é•œåƒè½¬æ¢ä¸ºå®¹å™¨
 export const transform=()=>{
     request.post<any,any>(API.mirror_transform_container_url)
 }
 
-//adminÖÆ×÷¾µÏñ
+//adminåˆ¶ä½œæ–°é•œåƒ
 export const createmirror=()=>{
     request.post<any,any>(API.create_mirror_url);
 }
 
-//adminÐÞ¸Ä¾µÏñ
+//adminä¿®æ”¹é•œåƒ
 export const changemirror=()=>{
     request.post<any,any>(API.change_mirror_url)
 }
 
-//adminÉ¾³ý¾µÏñ
+//adminÉ¾åˆ é™¤é•œåƒ
 export const deletemirror=()=>{
     request.delete<any,any>(API.delete_mirror_url)
 }
-//´«²ÎÊÇÊÇÊ²Ã´£¬»¹Òª²¹ÄÄÐ©type£¿
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê²Ã´ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Ð©typeï¿½ï¿½

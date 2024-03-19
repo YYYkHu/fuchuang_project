@@ -1,19 +1,19 @@
 // 用户管理api
 import request from "../../../utils/request";
-import { UserResponseData, User,Usernumber} from "./type";
+import type{ UserResponseData, User,Usernumber,ResponseData,User_info_change_response,User_info_change_Request} from "./type";
 
 enum API {
 
   //拿到所有的用户信息列表
-  ALLURERS_URL = "/user/userList",
+  ALLURERS_URL = "http://pllysun.top:9527/user/userList",
   //获得用户数量
-  ALLUSER_NUMBER_URL="//user/userCount",
+  ALLUSER_NUMBER_URL="http://pllysun.top:9527/user/userCount",
   // 删除
-  DELETE_URL = "/user/userCount",
+  DELETE_URL = "",
   // 添加用户信息
-  ADDUSER_URL = "",
+  ADDUSER_URL = "http://pllysun.top:9527/user/register",
   // 更新用户信息
-  UPDATEUSER_URL = "",
+  UPDATEUSER_URL = "http://pllysun.top:9527/user/userInfo",
 }
 
 // 获取用户账户信息
@@ -30,10 +30,10 @@ export const reqDeleteUser = (id: number) =>
 
 // 添加
 export const reqAddUpdateUser = (data: User) => {
-  // 判断是跟新还是添加
-  if (data.userId) {
-    return request.put<any, User>(API.UPDATEUSER_URL, data);
-  } else {
-    return request.post<any, User>(API.ADDUSER_URL, data);
-  }
+     request.post<any, ResponseData>(API.ADDUSER_URL, data);
+};
+
+//更新
+export const reqchangeUserinfo = (data:User_info_change_Request) => {
+  request.post<any, User_info_change_response>(API.ADDUSER_URL, data);
 };

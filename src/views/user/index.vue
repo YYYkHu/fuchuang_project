@@ -12,7 +12,7 @@
   </el-card>
   <!-- table展示数据 -->
   <el-card style="margin: 12px 0px">
-    <el-button type="primary" size="default" @click=""
+    <el-button type="primary" size="default" @click="addUser"
       >添加用户</el-button
     >
     <el-button type="primary" size="default">批量删除</el-button>
@@ -99,7 +99,7 @@
     />
   </el-card>
   <!-- 对话框 -->
-  <el-dialog title="修改用户信息" v-model="centerDialogVisible" width="500px">
+  <el-dialog title="添加用户" v-model="centerDialogVisible" width="500px">
     <el-form ref="form">
       <el-form-item label="用户名:">
         <el-input
@@ -107,12 +107,7 @@
           v-model="userParams.username"
         ></el-input>
       </el-form-item>
-      <el-form-item label="昵称:">
-        <el-input
-          placeholder="请输入用户昵称"
-          v-model="userParams.name"
-        ></el-input>
-      </el-form-item>
+      
       <el-form-item label="密码:">
         <el-input
           placeholder="请输入用户密码"
@@ -127,13 +122,62 @@
       </span>
     </template>
   </el-dialog>
-  <!-- 添加新的用户账号以及更新账号信息 -->
+  <!-- 添加新的用户账号 -->
+
+   <!-- 修改信息对话框 -->
+   <el-dialog title="添加用户" v-model="changerDialogVisible" width="500px">
+    <el-form ref="form">
+      <el-form-item label="用户名:">
+        <el-input
+          placeholder="请输入用户姓名"
+          v-model="userParams_info.name"
+        ></el-input>
+      </el-form-item>
+      
+      <el-form-item label="职业Id:">
+        <el-input
+          placeholder="请输入职业Id"
+          v-model="userParams_info.occupationId"
+        ></el-input>
+      </el-form-item>
+
+      <el-form-item label="手机号:">
+        <el-input
+          placeholder="请输入用户手机号"
+          v-model="userParams_info.phone"
+        ></el-input>
+      </el-form-item>
+
+      <el-form-item label="邮箱号:">
+        <el-input
+          placeholder="请输入用户邮箱"
+          v-model="userParams_info.email"
+        ></el-input>
+      </el-form-item>
+
+      <el-form-item label="角色Id:">
+        <el-input
+          placeholder="请输入角色Id"
+          v-model="userParams_info.roleId"
+        ></el-input>
+      </el-form-item>
+
+    </el-form>
+
+    <template #footer>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="changerDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="save_change">确 定</el-button>
+      </span>
+    </template>
+  </el-dialog>
+  <!-- 更新账号信息 -->
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted, reactive } from "vue";
-import { reqUserInfo, reqAddUpdateUser } from "@/api/acl/user/index";
-import { UserResponseData, Records, User } from "@/api/acl/user/type";
+import { reqUserInfo, reqAddUpdateUser,reqUsernumber,reqchangeUserinfo } from "@/api/acl/user/index";
+import { UserResponseData, Records, User,Usernumber,ResponseData,User_info_change_Request,User_info_change_response } from "@/api/acl/user/type";
 import { ElMessage } from "element-plus";
 // 默认页数
 let pageNo = ref(1);
@@ -145,18 +189,34 @@ let total = ref<number>(0);
 let userAll = ref<Records>([]);
 // 对话框的显示与隐藏
 let centerDialogVisible = ref<boolean>(false);
+let changerDialogVisible = ref<boolean>(false);
 // 收集用户的参数
 let userParams = reactive<User>({
   username: "",
-  name: "",
+  
   password: "",
+});
+let userParams_info = reactive<User_info_change_Request>({
+    email: "",
+    name: "",
+    occupationId: "",
+    phone: "",
+    roleId: "",
+    
 });
 
 // 挂载
 onMounted(() => {
+  getUserNumber();
   getUserInfo();
 });
-
+//获得用户总数量
+const getUserNumber =async()=>{
+    const result:Usernumber=await reqUsernumber();
+    if(result.code===0){
+      total.value=result.data;
+    }
+}
 // 获取用户信息
 const getUserInfo = async (pager = 1) => {
   pageNo.value = pager;
@@ -166,7 +226,7 @@ const getUserInfo = async (pager = 1) => {
   );
   if (result.code === 0) {
     userAll.value = result.data;
-    total.value = 13;
+   
   }
 };
 // 添加用户信息
@@ -175,24 +235,44 @@ const addUser = () => {
 };
 // 更新用户信息
 const updateUser = (row: User) => {
-  centerDialogVisible.value = true;
+  changerDialogVisible.value = true;
 };
 // 定义确定按钮的事件回调
 const save = async () => {
-  // 点击保存,判断是更新还是添加
-  let result: any = await reqAddUpdateUser(userParams);
+  // 点击保存,添加
+  const result: ResponseData = await reqAddUpdateUser(userParams);
   if (result.code === 0) {
     centerDialogVisible.value = false;
     // 提示消息
     ElMessage({
-      message: userParams.id ? "更新成功" : "添加成功",
+      message: "添加成功",
       type: "success",
     });
     // 重新获取数据
     getUserInfo();
   } else {
     ElMessage({
-      message: "操作失败",
+      message: "用户名已存在",
+      type: "error",
+    });
+  }
+};
+
+const save_change = async () => {
+  // 点击保存,添加
+  let result: User_info_change_response = await reqchangeUserinfo(userParams_info);
+  if (result.code===0) {
+    changerDialogVisible.value = false
+    // 提示消息
+    ElMessage({
+      message: "修改成功",
+      type: "success",
+    });
+    // 重新获取数据
+    getUserInfo();
+  } else {
+    ElMessage({
+      message: "修改失败",
       type: "error",
     });
   }

@@ -20,14 +20,14 @@
         <!-- 表格列配置 -->
         <el-table-column
           label="序号"
-          width="80px"
+       
           align="center"
           type="index"
         ></el-table-column>
 
         <el-table-column
           label="logId"
-          width="100px"
+        
           align="center"
           prop="logId"
         ></el-table-column>
@@ -35,23 +35,32 @@
         
 
         <el-table-column 
-        label="localTime" 
-        width="200"
+        label="logTime" 
+       
         align="center"
-        prop="localTime"
+        prop="logTime"
         >
           
         </el-table-column>
 
         <el-table-column 
         label="logContent" 
-        width="200"
+    
         align="center"
         prop="logContent"
         >
           
         </el-table-column>
 
+        <el-table-column 
+        label="userName" 
+    
+        align="center"
+        prop="userName"
+        >
+          
+        </el-table-column>
+        
         <!-- <el-table-column label="修改删除">
           <template #default="{ row, $index }">
             <el-button type="primary" size="" icon="Edit">修改</el-button>

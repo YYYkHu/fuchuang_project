@@ -1,24 +1,12 @@
-//官方和用户的查询参数
-export interface Reqmirror {
-    " recommendedMemory"?: number;
-    imageName?: string;
-    imageSystem?: string;
-    labelName?: string[];
-    pageNum?: number;
-    pageSize?: number;
-    recommendedCpu?: number;
-    recommendedDataDisk?: number;
-    recommendedSystemDisk?: number;
-    [property: string]: any;
-}
+
 export interface Response {
     code: number;
-    data: Data[];
     msg: string;
-    [property: string]: any;
 }
 
-export interface Data {
+export type Records = responseData[];
+
+export interface responseData {
     imageId?: number;
     imageName?: string;
     imageSystem?: string;
@@ -27,5 +15,30 @@ export interface Data {
     recommendedDataDisk?: number;
     recommendedMemory?: number;
     recommendedSystemDisk?: number;
-    [property: string]: any;
+   
 }
+
+export interface offical_responsedata extends Response{
+    data:{
+        records:Records
+    }
+}
+
+export interface user_responsedata extends Response{
+    data:{
+        records:Records
+    }
+}
+
+// export interface Reqmirror {
+//     " recommendedMemory"?: number;
+//     imageName?: string;
+//     imageSystem?: string;
+//     labelName?: string[];
+//     pageNum?: number;
+//     pageSize?: number;
+//     recommendedCpu?: number;
+//     recommendedDataDisk?: number;
+//     recommendedSystemDisk?: number;
+//     [property: string]: any;
+// }

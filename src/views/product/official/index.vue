@@ -15,7 +15,7 @@
     <el-table style="margin: 12px 0px" border :data="userAll">
       <el-table-column type="selection"></el-table-column>
       <el-table-column label="#" type="index" align="center" show-overflow-tooltip></el-table-column>
-      <el-table-column label="ID" prop="id" align="center" show-overflow-tooltip></el-table-column>
+      <el-table-column label="ID" prop="imageId" align="center" show-overflow-tooltip></el-table-column>
 
       <el-table-column label="镜像名称" prop="imageName" align="center" show-overflow-tooltip></el-table-column>
 
@@ -23,20 +23,18 @@
 
       <el-table-column label="标签" prop="labelName" align="center" show-overflow-tooltip></el-table-column>
 
-      <el-table-column label="推荐CPU" prop="recommendedcpu" align="center" show-overflow-tooltip></el-table-column>
+      <el-table-column label="推荐CPU" prop="recommendedCpu" align="center" show-overflow-tooltip></el-table-column>
 
       <el-table-column label="推荐内存" prop="recommendedMemory" align="center" show-overflow-tooltip></el-table-column>
 
-      <el-table-column label="推荐系统盘" prop="recommendedSystemDisk" align="center" show-overflow-tooltip></el-table-column>
-
-      <el-table-column label="推荐数据盘" prop=" recommendedDataDisk" align="center" show-overflow-tooltip></el-table-column>
+      <el-table-column label="推荐系统盘" prop="recommendedDataDisk" align="center" show-overflow-tooltip></el-table-column>
 
       <el-table-column label="介绍" prop="imageIntroduce" align="center" show-overflow-tooltip></el-table-column>
 
 
       <el-table-column label="操作" width="200px" align="center">
         <template #="{ row, $index }">
-          <el-button type="primary" size="small" icon="Edit" @click="updateContainer">编辑</el-button>
+         
 
           <el-popconfirm :title="`确定要删除${row.tmName}`" width="200px" @confirm="row.id;">
             <template #reference>
@@ -91,8 +89,8 @@
 
 <script setup lang="ts">
 import { ref, onMounted, reactive, nextTick } from "vue";
-import { reqUserInfo, reqDeleteUser } from "@/api/acl/user/index";
-import { UserResponseData, Records, User } from "@/api/acl/user/type";
+import {reqofficalmirror} from "../../../api/mirror/index";
+import { offical_responsedata,Records} from "../../../api/mirror/type";
 import { ElMessage } from "element-plus";
 // 默认页数
 let pageNo = ref(1);
@@ -113,104 +111,29 @@ let form = ref<any>(null);
 onMounted(() => {
   getUserInfo();
 });
-
-// 获取用户信息
-const getUserInfo = async (pager = 1) => {
-  pageNo.value = pager;
-  const result: UserResponseData = await reqUserInfo(
-    pageNo.value,
-    pageSize.value
-  );
-
-  if (result.code === 200) {
-    userAll.value = result.data.records;
-    total.value = result.data.total;
+//重写api接口
+const reqofficalmirror = async () => {
+  try {
+    const response = await fetch('http://pllysun.top:9527/image/official/1');
+    const data = await response.json();
+    console.log('Response from reqofficalmirror:', data);
+    return data;
+  } catch (error) {
+    console.error('Error in reqofficalmirror:', error);
+    throw error;
   }
 };
-// 删除用户
-const removeContainer = async (id: number) => {
-  let result = await reqDeleteUser(id);
-  if (result.code == 200) {
-    // 剔除成功的提示
-    ElMessage({
-      type: "success",
-      message: "删除成功",
-    });
-    // 删除成功后重新获取数据
-    let newPageNo = pageNo.value;
-    ContainerArr.value = ContainerArr.value.filter(
-      (trademark) => trademark.id !== id
-    );
-    // 如果还有剩余的品牌数据，则保持在当前页；否则判断是否为第一页，如果是第一页则保持在第一页，否则退回到上一页
-    if (ContainerArr.value.length === 0) {
-      newPageNo = Math.max(1, newPageNo - 1);
-    }
-    // 重新获取数据
-    getUserInfo(newPageNo);
-  } else {
-    ElMessage({
-      type: "error",
-      message: "删除失败",
-    });
+
+// 获取信息
+const getUserInfo = async () => {
+  const result:offical_responsedata= await reqofficalmirror();
+  console.log(result);
+  if (result.code === 0) {
+    userAll.value = result.data;
+    
   }
-};
-// 修改用户信息 括号中绑定对象row:类型
-const updateContainer = (row: User) => {
-  centerDialogVisible.value = true;
-  // 修改用户信息时，将当前行的数据赋值给表单
-  Object.assign(RoleParam, row);
-};
-// 收集修改的表单数据
-let RoleParam = reactive({});
-//  自定义校验规则
-const validatorName = (rule: any, value: any, callback: any) => {
-  if (value.trim().length >= 2) {
-    callback();
-  } else {
-    callback(new Error("用户名不能小于2位"));
-  }
-};
-// 校验规则
-const rules = {
-  containerName: [
-    { required: true, trigger: "blur", validator: validatorName },
-  ],
-};
-// 确定按钮的回调
-const save = async () => {
-  // 表单校验通过，才调用接口函数
-  await form.value.validate();
-  // 添加更新请求
-  // let result = await reqUpdateContainer(RoleParam);
-  // if(result.code == 200){
-  //   ElMessage({
-  //     type: "success",
-  //     message: "修改成功",
-  //   });
-  // 关闭弹窗
-  centerDialogVisible.value = false;
-  // 重新获取数据
-  getUserInfo(pageNo.value);
-  //   }else{
-  //     ElMessage({
-  //       type: "error",
-  //       message: "修改失败",
-  //     });
-  //   }
 };
 
-// 添加表达的方法
-const addContainer = () => {
-  centerDialogVisible.value = true;
-  // 清空数据
-  Object.assign(RoleParam, {
-    roleName: "",
-  });
-  // 清空上一次表单的错误结果,roleName为校验字段
-  nextTick(() => {
-    form.value.clearValidate("roleName");
-  });
-};
 </script>
 
 <style scoped></style>

@@ -1,9 +1,12 @@
 import request from "@/utils/request";
-import {Request,Response}from './type'
+import {
+    offical_responsedata
+    ,user_responsedata
+}from './type'
 
 enum API{
-  request_offical_url=" ",
-  request_user_url=" ",
+  request_offical_url="http://pllysun.top:9527/image/official/1",
+  request_user_url="http://pllysun.top:9527/image/user",
   delete_mirror_url="",
   change_mirror_url="",
   create_mirror_url="",
@@ -14,12 +17,12 @@ enum API{
 
 //请求官方镜像
 export const reqofficalmirror=()=>{
-    request.get<any,Response>(API.request_offical_url);
+    request.get<any,offical_responsedata>(API.request_offical_url);
 }
 
 //请求用户镜像
 export const requsermirror=()=>{
-    request.get<any,Response>(API.request_user_url);
+    request.get<any,user_responsedata>(API.request_user_url);
 }
 //自定义镜像查询
 export const customreqmirror=()=>{
@@ -50,4 +53,4 @@ export const changemirror=()=>{
 export const deletemirror=()=>{
     request.delete<any,any>(API.delete_mirror_url)
 }
-//��������ʲô����Ҫ����Щtype��
+

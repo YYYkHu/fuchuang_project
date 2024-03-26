@@ -15,29 +15,34 @@
     <el-table style="margin: 12px 0px" border :data="userAll">
       <el-table-column type="selection"></el-table-column>
       <el-table-column label="#" type="index" align="center" show-overflow-tooltip></el-table-column>
-      <el-table-column label="ID" prop="id" align="center" show-overflow-tooltip></el-table-column>
+      <el-table-column label="ID" prop="podControllerId" align="center" show-overflow-tooltip></el-table-column>
 
       <el-table-column label="用户名" prop="name" align="center" show-overflow-tooltip></el-table-column>
 
-      <el-table-column label="容器名" prop="roleName" align="center" show-overflow-tooltip></el-table-column>
+      <el-table-column label="容器名" prop="podControllerName" align="center" show-overflow-tooltip></el-table-column>
 
-      <el-table-column label="状态" prop="roleName" align="center" show-overflow-tooltip></el-table-column>
+      <el-table-column label="网络id" prop="networkId" align="center" show-overflow-tooltip></el-table-column>
+      
+      <el-table-column label="网络名称" prop="networkId" align="center" show-overflow-tooltip></el-table-column>
+      
+      <el-table-column label="用户id" prop="userId" align="center" show-overflow-tooltip></el-table-column>
+
+      <el-table-column label="ip地址" prop="ipAddress" align="center" show-overflow-tooltip></el-table-column>
+
+      <el-table-column label="状态" prop="containerState" align="center" show-overflow-tooltip></el-table-column>
+
+      <el-table-column label="桌面版本" prop="podControllerVersion" align="center" show-overflow-tooltip></el-table-column>
+
+      <el-table-column label="桌面Cpu" prop="podControllerCpu" align="center" show-overflow-tooltip></el-table-column>
+
+      <el-table-column label="桌面Memory" prop="podControllerMemory" align="center" show-overflow-tooltip></el-table-column>
+
+      <el-table-column label="桌面DataDisk" prop="podControllerDataDisk" align="center" show-overflow-tooltip></el-table-column>
 
       <el-table-column label="创建时间" prop="createTime" align="center" show-overflow-tooltip></el-table-column>
 
       <el-table-column label="最近开机时间" prop="updateTime" align="center" show-overflow-tooltip></el-table-column>
-
-      <el-table-column label="ip地址" prop="roleName" align="center" show-overflow-tooltip></el-table-column>
-
-      <el-table-column label="CPU" prop="roleName" align="center" show-overflow-tooltip></el-table-column>
-
-      <el-table-column label="内存" prop="roleName" align="center" show-overflow-tooltip></el-table-column>
-
-      <el-table-column label="系统盘" prop="roleName" align="center" show-overflow-tooltip></el-table-column>
-
-      <el-table-column label="数据盘" prop="roleName" align="center" show-overflow-tooltip></el-table-column>
-
-      <el-table-column label="所属网络" prop="roleName" align="center" show-overflow-tooltip></el-table-column>
+     
 
       <!-- <el-table-column label="操作" width="200px" align="center">
         <template #="{ row, $index }">
@@ -103,8 +108,8 @@
 
 <script setup lang="ts">
 import { ref, onMounted, reactive, nextTick } from "vue";
-import { reqUserInfo, reqDeleteUser } from "@/api/acl/user/index";
-import { UserResponseData, Records, User } from "@/api/acl/user/type";
+import {reqAllUsersContainer} from "../../api/container/index"
+import {ContainerResponseData,AllUserContainerResponseData,Container,Records} from "../../api/container/type"
 import { ElMessage } from "element-plus";
 // 默认页数
 let pageNo = ref(1);
@@ -129,43 +134,40 @@ onMounted(() => {
 // 获取用户信息
 const getUserInfo = async (pager = 1) => {
   pageNo.value = pager;
-  const result: UserResponseData = await reqUserInfo(
-    pageNo.value,
-    pageSize.value
-  );
-
-  if (result.code === 200) {
-    userAll.value = result.data.records;
-    total.value = result.data.total;
+  const result: AllUserContainerResponseData = await reqAllUsersContainer();
+console.log(result)
+  if (result.code === 0) {
+    userAll.value = result.data;
+   
   }
 };
-// 删除用户
-const removeContainer = async (id: number) => {
-  let result = await reqDeleteUser(id);
-  if (result.code == 200) {
-    // 剔除成功的提示
-    ElMessage({
-      type: "success",
-      message: "删除成功",
-    });
-    // 删除成功后重新获取数据
-    let newPageNo = pageNo.value;
-    ContainerArr.value = ContainerArr.value.filter(
-      (trademark) => trademark.id !== id
-    );
-    // 如果还有剩余的品牌数据，则保持在当前页；否则判断是否为第一页，如果是第一页则保持在第一页，否则退回到上一页
-    if (ContainerArr.value.length === 0) {
-      newPageNo = Math.max(1, newPageNo - 1);
-    }
-    // 重新获取数据
-    getUserInfo(newPageNo);
-  } else {
-    ElMessage({
-      type: "error",
-      message: "删除失败",
-    });
-  }
-};
+// // 删除用户
+// const removeContainer = async (id: number) => {
+//   let result = await reqDeleteUser(id);
+//   if (result.code == 200) {
+//     // 剔除成功的提示
+//     ElMessage({
+//       type: "success",
+//       message: "删除成功",
+//     });
+//     // 删除成功后重新获取数据
+//     let newPageNo = pageNo.value;
+//     ContainerArr.value = ContainerArr.value.filter(
+//       (trademark) => trademark.id !== id
+//     );
+//     // 如果还有剩余的品牌数据，则保持在当前页；否则判断是否为第一页，如果是第一页则保持在第一页，否则退回到上一页
+//     if (ContainerArr.value.length === 0) {
+//       newPageNo = Math.max(1, newPageNo - 1);
+//     }
+//     // 重新获取数据
+//     getUserInfo(newPageNo);
+//   } else {
+//     ElMessage({
+//       type: "error",
+//       message: "删除失败",
+//     });
+//   }
+// };
 // 修改用户信息 括号中绑定对象row:类型
 const updateContainer = (row: User) => {
   centerDialogVisible.value = true;

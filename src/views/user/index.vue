@@ -83,7 +83,7 @@
             @click="updateUser(row)"
             >编辑</el-button
           >
-          <el-button type="danger" size="small" icon="Delete">删除</el-button>
+          
         </template>
       </el-table-column>
     </el-table>
@@ -202,7 +202,7 @@ let userParams_info = reactive<User_info_change_Request>({
     occupationId: "",
     phone: "",
     roleId: "",
-    
+    username: "",
 });
 
 // 挂载

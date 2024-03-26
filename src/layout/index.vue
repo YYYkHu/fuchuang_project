@@ -7,7 +7,7 @@
       <Logo></Logo>
       <!-- 展示 -->
       <!-- 滚动组件 -->
-      <el-scrollbar class="scrollbar">
+      <!-- <el-scrollbar class="scrollbar"> -->
         <!-- 菜单组件 -->
         <el-menu
           :default-active="$route.path"
@@ -30,7 +30,7 @@
           <!--根据路由动态生成菜单 -->
           <Menu :menuList="userStore.menuRoutes"></Menu>
         </el-menu>
-      </el-scrollbar>
+      <!-- </el-scrollbar> -->
     </div>
     <!-- 顶部导航 -->
     <div

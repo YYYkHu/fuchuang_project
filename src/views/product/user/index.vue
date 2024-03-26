@@ -94,8 +94,8 @@
 
 <script setup lang="ts">
 import { ref, onMounted, reactive, nextTick } from "vue";
-import { reqUserInfo, reqDeleteUser } from "@/api/acl/user/index";
-import { UserResponseData, Records, User } from "@/api/acl/user/type";
+import { requsermirror} from "../../../api/mirror/index";
+import { user_responsedata} from "../../../api/mirror/type";
 import { ElMessage } from "element-plus";
 // 默认页数
 let pageNo = ref(1);
@@ -117,17 +117,26 @@ onMounted(() => {
   getUserInfo();
 });
 
+const requsermirror = async () => {
+  try {
+    const response = await fetch('http://pllysun.top:9527/image/user');
+    const data = await response.json();
+    console.log('Response from reqofficalmirror:', data);
+    return data;
+  } catch (error) {
+    console.error('Error in reqofficalmirror:', error);
+    throw error;
+  }
+};
+
 // 获取用户信息
 const getUserInfo = async (pager = 1) => {
   pageNo.value = pager;
-  const result: UserResponseData = await reqUserInfo(
-    pageNo.value,
-    pageSize.value
-  );
-
-  if (result.code === 200) {
+  const result: user_responsedata = await requsermirror();
+console.log(result);
+  if (result.code === 0) {
     userAll.value = result.data.records;
-    total.value = result.data.total;
+    
   }
 };
 // 删除用户

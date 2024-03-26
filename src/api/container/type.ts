@@ -1,10 +1,10 @@
-// // ts类型
+//公有信息
 export interface ResponseData {
   code: number;
   message: string;
 }
 
-// 一个rows中的数据类型
+
 export interface Container {
   podControllerId: number;
   podControllerName: "string";
@@ -26,7 +26,6 @@ export type Records = Container[];
 // admin查询用户桌面容器信息
 export interface AllUserContainerResponseData extends ResponseData {
   data: {
-    total: number;
     rows: Records;
   };
 }

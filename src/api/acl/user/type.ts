@@ -48,10 +48,12 @@ export interface User_info_change_response {
  * UserInfoDTO
  */
 export interface User_info_change_Request {
-  email?: null | string;
-  name?: null | string;
-  occupationId?: null | string;
-  phone?: null | string;
-  roleId?: null | string;
+  email?: string;
+  name?: string;
+  occupationId?: string;
+  phone?: string;
+  roleId?: string;
+  username: string;
+  
   
 }

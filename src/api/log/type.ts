@@ -15,7 +15,8 @@ export interface ResponseData {
 
 export interface AdminResponsedata extends ResponseData{
     data: {
-        records: Records;
+        total:number;
+        rows: Records;
         
       };
 }

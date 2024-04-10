@@ -8,7 +8,7 @@ import {
 
 enum API {
   // admin查询所有用户桌面容器列表
-  ALLUSERSCONTAINER_URL = "http://pllysun.top:9527/container/list/1", //不确定前面是否有 ” @/ “
+  ALLUSERSCONTAINER_URL = "http://pllysun.top:9527/container/adminList", //不确定前面是否有 ” @/ “
   // 查询桌面容器列表
   CONTAINERLIST_URL = "/container/list",
   // 桌面容器关机

@@ -61,33 +61,47 @@ onMounted(() => {
 });
 /** @type EChartsOption */
 const options1 = {
+  title: {
+    text: "前七日镜像使用数",
+    left: "center",
+  },
   // echarts 配置项
   xAxis: {
     type: "category",
-    data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    data: ["3.28", "3.29", "3.30", "3.31", "4.1", "4.2", "4.3"],
   },
   yAxis: {
     type: "value",
   },
+  tooltip: {
+    trigger: "item",
+  },
   series: [
     {
-      data: [120, 200, 150, 80, 70, 110, 130],
+      data: [21,27, 24, 31, 29, 35, 38],
       type: "bar",
     },
   ],
 };
 /** @type EChartsOption */
 const options2 = {
+  title: {
+    text: "前七日用户访问数",
+    left: "center",
+  },
   xAxis: {
     type: "category",
-    data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    data: ["3.28", "3.29", "3.30", "3.31", "4.1", "4.2", "4.3"],
   },
   yAxis: {
     type: "value",
   },
+  tooltip: {
+    trigger: "item",
+  },
   series: [
     {
-      data: [150, 230, 224, 218, 135, 147, 260],
+      data: [75, 115, 112, 109, 70, 77, 130],
       type: "line",
     },
   ],
@@ -95,8 +109,8 @@ const options2 = {
 /** @type EChartsOption */
 const options3 = {
   title: {
-    text: "Referer of a Website",
-    subtext: "Fake Data",
+    text: "使用中与关闭的容器数比例",
+    
     left: "center",
   },
   tooltip: {
@@ -108,15 +122,15 @@ const options3 = {
   },
   series: [
     {
-      name: "Access From",
+      
       type: "pie",
       radius: "50%",
       data: [
-        { value: 1048, name: "Search Engine" },
-        { value: 735, name: "Direct" },
-        { value: 580, name: "Email" },
-        { value: 484, name: "Union Ads" },
-        { value: 300, name: "Video Ads" },
+        {  },
+        { value: 4, name: "使用中" },
+        { },
+        { value: 27, name: "关闭中" },
+        {  },
       ],
       emphasis: {
         itemStyle: {

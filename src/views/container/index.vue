@@ -17,9 +17,9 @@
       <el-table-column label="#" type="index" align="center" show-overflow-tooltip></el-table-column>
       <el-table-column label="ID" prop="podControllerId" align="center" show-overflow-tooltip></el-table-column>
 
-      <el-table-column label="用户名" prop="name" align="center" show-overflow-tooltip></el-table-column>
+      
 
-      <el-table-column label="容器名" prop="podControllerName" align="center" show-overflow-tooltip></el-table-column>
+      <el-table-column label="容器名" prop="containerName" align="center" show-overflow-tooltip></el-table-column>
 
       <el-table-column label="网络id" prop="networkId" align="center" show-overflow-tooltip></el-table-column>
       
@@ -135,10 +135,10 @@ onMounted(() => {
 const getUserInfo = async (pager = 1) => {
   pageNo.value = pager;
   const result: AllUserContainerResponseData = await reqAllUsersContainer();
-console.log(result)
+console.log(result);
   if (result.code === 0) {
-    userAll.value = result.data;
-   
+    userAll.value =result.data.rows;
+   total.value=result.data.total;
   }
 };
 // // 删除用户

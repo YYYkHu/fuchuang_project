@@ -26,6 +26,7 @@ export type Records = Container[];
 // admin查询用户桌面容器信息
 export interface AllUserContainerResponseData extends ResponseData {
   data: {
+    total:number;
     rows: Records;
   };
 }

@@ -11,7 +11,7 @@
           ref="loginForms"
         >
           <h1>Hello</h1>
-          <h2>脆脆鲨</h2>
+          
           <el-form-item prop="username">
             <el-input
               :prefix-icon="User"

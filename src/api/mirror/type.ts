@@ -9,18 +9,24 @@ export type Records = responseData[];
 export interface responseData {
     imageId?: number;
     imageName?: string;
+    userId:number;
+    imageRemark:string;
     imageSystem?: string;
-    labelName?: string;
+    labelName?: string[];
+    recommendedId:number;
     recommendedCpu?: number;
     recommendedDataDisk?: number;
     recommendedMemory?: number;
-    recommendedSystemDisk?: number;
+    imageIntroduce:string;
+
+   
    
 }
 
 export interface offical_responsedata extends Response{
     data:{
-        records:Records
+        total:number;
+        records:Records;
     }
 }
 

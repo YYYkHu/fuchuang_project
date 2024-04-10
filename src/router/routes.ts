@@ -17,8 +17,9 @@ export const constantRoutes = [
     name: "layout",
     meta: {
       title: "首页",
+       hidden: true,
       //表示标题在菜单中是否隐藏  true：隐藏
-      icon: "Avatar", //菜单左侧图标
+      icon: "House", //菜单左侧图标
     },
     redirect: "/home",
     children: [
@@ -28,7 +29,7 @@ export const constantRoutes = [
         meta: {
           title: "首页",
           hidden: false, //表示标题在菜单中是否隐藏  true：隐藏
-          icon: "HomeFilled", //菜单左侧图标
+          icon: "House", //菜单左侧图标
         },
       },
     ],
@@ -60,7 +61,7 @@ export const constantRoutes = [
     meta: {
       title: "用户管理",
       hidden: false,
-      icon: "Lock",
+      icon: "User",
     },
     children: [
       {
@@ -83,7 +84,7 @@ export const constantRoutes = [
     meta: {
       title: "容器管理",
       hidden: false,
-      icon: "Lock",
+      icon: "Compass",
     },
     redirect: "/acl/role",
     children: [
@@ -94,7 +95,7 @@ export const constantRoutes = [
         meta: {
           title: "容器管理",
           hidden: false,
-          icon: "User",
+          icon: "Compass",
         },
       },
     ],
@@ -107,7 +108,7 @@ export const constantRoutes = [
     meta: {
       title: "镜像管理",
       hidden: false,
-      icon: "ShoppingBag",
+      icon: "MessageBox",
     },
     children: [
       {
@@ -127,19 +128,19 @@ export const constantRoutes = [
         meta: {
           title: "用户镜像管理",
           hidden: false,
-          icon: "Calendar",
+          icon: "PieChart",
         },
       },
-      {
-        path: "/product/attr",
-        component: () => import("@/views/product/custom/index.vue"),
-        name: "Attr",
-        meta: {
-          title: "自定义镜像管理",
-          hidden: false,
-          icon: "ChromeFilled",
-        },
-      },
+      // {
+      //   path: "/product/attr",
+      //   component: () => import("@/views/product/custom/index.vue"),
+      //   name: "Attr",
+      //   meta: {
+      //     title: "自定义镜像管理",
+      //     hidden: false,
+      //     icon: "ChromeFilled",
+      //   },
+      // },
     ],
   },
 

@@ -1,13 +1,13 @@
 <template>
   <!-- 顶部右侧静态 -->
-  <el-button type="primary" size="small" icon="Refresh" circle></el-button>
+  <!-- <el-button type="primary" size="small" icon="Refresh" circle></el-button>
   <el-button type="primary" size="small" icon="FullScreen" circle></el-button>
 
-  <el-button type="primary" size="small" icon="Setting" circle></el-button>
+  <el-button type="primary" size="small" icon="Setting" style="margin: 10px;" circle></el-button> -->
   <img
-    :src="userStore.avatar"
-    style="width: 24px; height: 24px"
-    margin="0px 10px"
+    :src="a"
+    style="width: 24px; height: 24px;margin-right: 10px;"
+    
     border-radius="50%"
   />
   <!-- 下拉菜单 -->
@@ -30,6 +30,7 @@
 import { useRouter, useRoute } from "vue-router";
 // 获取用户相关的小仓库
 import useUserStore from "@/store/modules/user";
+import a from "../../../public/head2.jpg"
 // 获取路由对象
 let userStore = useUserStore();
 let $router = useRouter();

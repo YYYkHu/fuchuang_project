@@ -1,6 +1,6 @@
 <template>
   <!-- 顶部左侧静态 -->
-  <el-icon style="margin-right: 10px" @click="changeIcon">
+  <el-icon style="margin-right: 10px" >
     <component :is="layoutSettingStore.fold ? 'Fold' : 'Expand'"></component>
     <!-- 根据folded的值来决定使用Fold还是Expand图标 -->
   </el-icon>
@@ -27,9 +27,7 @@ let layoutSettingStore = useLayOutSettingStore();
 // let fold = ref(false);  //控制图标是否切换的便捷变量
 // 获取路由对象
 let $route = useRoute();
-const changeIcon = () => {
-  layoutSettingStore.fold = !layoutSettingStore.fold;
-};
+
 </script>
 
 <script lang="ts">
